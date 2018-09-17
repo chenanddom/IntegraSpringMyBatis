@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are by default assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<property name="logDir" value="D:" />
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<!--日志文件的名字-->
+		<file>${logDir}/logFile.%d{yyyy-MM-dd}.log</file>
+		<!--追加-->
+		<append>true</append>
+		<!--日志格式-->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logDir}/logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%-4relative %d{HH:mm:ss.SSS} - [%thread] %-5level %class - %msg%n</pattern>
+		</encoder>
+
+	</appender>
+
+
+
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+<!--	<logger name="com.batis.mapper" level="debug" additivity="false">
+		<appender-ref ref="FILE" />
+	</logger>-->
+</configuration>
